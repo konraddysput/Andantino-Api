@@ -5,46 +5,14 @@
 #include <stdio.h>
 #include <list>
 #include "Ally.h"
+#include "GlobalBoard.h"
 #include "AndantinoApi.h"
 using namespace std;
 
-class Ally {
-public:
-	int width;
-	int height;
-	Ally(int width, int height)
-	{
-		this->width = width;
-		this->height = height;
-	}
-};
 
 int boardWidth = 10;
 int boardHeight = 10;
-class globalVariables {
-public:
-	bool **duplicationBoard;
-	globalVariables()
-	{
-		duplicationBoard = new bool *[boardWidth];
-		for (int i = 0; i < boardWidth; ++i)
-		{
-			duplicationBoard[i] = new bool[boardHeight];
-			for (int j = 0; j < boardHeight; j++)
-			{
-				duplicationBoard[i][j] = false;
-			}
-		}
-	}
-
-	void clearBoard()
-	{
-		for (int i = 0; i < boardWidth; i++)
-			for (int j = 0; j < boardHeight; j++)
-				duplicationBoard[i][j] = false;
-	}
-};
-globalVariables globalVar;
+GlobalBoard *globalVar = new GlobalBoard(boardWidth, boardHeight);
 
 void print_board(int **board, int h, int w)
 {
@@ -65,11 +33,15 @@ bool checkRing(int heightAddres, int widthAddres, int **board, int p)
 	typedef std::list<Ally*> alliesList;
 	alliesList allies;
 	bool closed[6];
-	for (int i = 0; i < 6; i++)
-		closed[i] = true;	//bool Ally[6];
 	bool status = false;
 
-	globalVar.duplicationBoard[heightAddres][widthAddres] = true;
+	for (int i = 0; i < 6; i++)
+	{
+		closed[i] = true;
+	}
+
+
+	globalVar->setBoardValue(heightAddres, widthAddres, AI);
 	if (board[heightAddres][widthAddres] == p)
 	{
 		if (board[heightAddres + 1][widthAddres - 1] != (p*(-1)))
@@ -119,10 +91,11 @@ bool checkRing(int heightAddres, int widthAddres, int **board, int p)
 			listMyClassIter != allies.end();
 			listMyClassIter++)
 		{
-			if (globalVar.duplicationBoard[(*listMyClassIter)->height][(*listMyClassIter)->width] == false)
-				if (checkRing((*listMyClassIter)->height, (*listMyClassIter)->width, board, p) == false)
-					return false;
-
+			if (globalVar->getBoardValue((*listMyClassIter)->getWidth(), (*listMyClassIter)->getHeight()) ==
+				checkRing((*listMyClassIter)->getHeight(), (*listMyClassIter)->getWidth(), board, p) == Player)
+			{
+				return false;
+			}
 		}
 		for (int i = 0; i < 6; i++)
 		{
@@ -134,9 +107,9 @@ bool checkRing(int heightAddres, int widthAddres, int **board, int p)
 	}
 }
 
-bool check_win(int  **board, int height, int width, int player)
+bool CheckWin(int  **board, int height, int width, int player)
 {
-	globalVar.clearBoard();
+	globalVar->clearBoard();
 	int howManyMatches = 0;
 	//Sprawdzanie w poziomie - BEGIN
 	for (int i = 0; i < height; i++)
@@ -297,7 +270,7 @@ bool check_win(int  **board, int height, int width, int player)
 			for (int j = 0; j < width; j += 2)
 			{
 				if (board[i][j] == player*(-1))
-					if (globalVar.duplicationBoard[i][j] == false)
+					if (globalVar->getBoardValue(i, j) == false)
 						if (checkRing(i, j, board, (player*(-1))) == true)
 							return true;
 			}
@@ -307,7 +280,7 @@ bool check_win(int  **board, int height, int width, int player)
 			for (int j = 1; j < width; j += 2)
 			{
 				if (board[i][j] == player*(-1))
-					if (globalVar.duplicationBoard[i][j] == false)
+					if (globalVar->getBoardValue(i, j) == false)
 						if (checkRing(i, j, board, (player*(-1))) == true)
 							return true;
 			}
@@ -318,13 +291,14 @@ bool check_win(int  **board, int height, int width, int player)
 
 int checkWinForTwoPlayers(int **board)
 {
-	if (check_win(board, boardWidth, boardHeight, 1))
+	if (CheckWin(board, boardWidth, boardHeight, 1))
+	{
 		return 1;
+	}
 	else
-		if (check_win(board, boardWidth, boardHeight, -1))
-			return -1;
-		else
-			return 0;
+	{
+		return CheckWin(board, boardWidth, boardHeight, -1) == true ? -1 : 0;
+	}
 }
 int main()
 {
@@ -444,10 +418,7 @@ int main()
 			break;
 		}
 
-		//board[2][4]=-1;	
-		//board[5][5]=1;
-		//board[4][4]=1;
-		//board[3][3]=0;		
+
 		print_board(board, boardHeight, boardWidth);
 
 		int status = checkWinForTwoPlayers(board);
