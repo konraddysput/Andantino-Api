@@ -300,6 +300,88 @@ int checkWinForTwoPlayers(int **board)
 		return CheckWin(board, boardWidth, boardHeight, -1) == true ? -1 : 0;
 	}
 }
+
+void move(int  **board, int height, int width, int h_pos, int w_pos, int player)
+{
+	switch (move_counter)
+	{
+	case 0:
+	{
+		for (int i = 0; i < height; i++)
+		{
+			if (h_pos == i)
+			{
+				for (int j = 0; j < width; j++)
+				{
+					if (w_pos == j)
+					{
+						board[i][j] = player;
+						move_counter++;
+						break;
+					}
+				}
+				break;
+			}
+		}
+		break;
+	}
+	case 1:
+	{
+		for (int i = 0; i < height; i++)
+		{
+			if (h_pos == i)
+			{
+				for (int j = 0; j < width; j++)
+				{
+					if (w_pos == j)
+					{
+						if (board[i - 2][j - 2] != 0 || board[i][j - 2] != 0 || board[i + 2][j - 2] != 0 || board[i - 2][j] != 0 || board[i + 2][j] != 0 || board[i - 2][j + 2] != 0 || board[i][j + 2] != 0 || board[i + 2][j + 2] != 0)
+						{
+							board[i][j] = player;
+							move_counter++;
+							break;
+						}
+						else
+						{
+							cout << "ruch niedozwolony";
+						}
+					}
+				}
+				break;
+			}
+		}
+		break;
+	}
+	case 2:
+	{
+		for (int i = 0; i < height; i++)
+		{
+			if (h_pos == i)
+			{
+				for (int j = 0; j < width; j++)
+				{
+					if (w_pos == j)
+					{
+						if (((board[i - 2][j - 2] != 0) && (board[i - 2][j] != 0)) || ((board[i - 2][j] != 0) && (board[i - 2][j + 2] != 0)) || board[i + 2][j - 2] != 0 || ((board[i][j - 2] != 0) && (board[i + 2][j - 2] != 0)) || ((board[i + 2][j - 2] != 0) && (board[i + 2][j] != 0)) || ((board[i + 2][j] != 0) && (board[i + 2][j] != 0)) || ((board[i - 2][j + 2] != 0) && (board[i][j + 2] != 0)) || ((board[i][j + 2] != 0) && (board[i + 2][j] != 0)))
+						{
+							board[i][j] = player;
+							move_counter++;
+							break;
+						}
+						else
+						{
+							cout << "ruch niedozwolony";
+						}
+					}
+				}
+				break;
+			}
+		}
+		break;
+	}
+	}
+}
+
 int main()
 {
 	int option = 0;
