@@ -391,7 +391,6 @@ void move(int  **board, int height, int width, int h_pos, int w_pos, int player)
 						if (((board[i - 2][j - 2] != 0) && (board[i - 2][j] != 0)) || ((board[i - 2][j] != 0) && (board[i - 2][j + 2] != 0)) || board[i + 2][j - 2] != 0 || ((board[i][j - 2] != 0) && (board[i + 2][j - 2] != 0)) || ((board[i + 2][j - 2] != 0) && (board[i + 2][j] != 0)) || ((board[i + 2][j] != 0) && (board[i + 2][j] != 0)) || ((board[i - 2][j + 2] != 0) && (board[i][j + 2] != 0)) || ((board[i][j + 2] != 0) && (board[i + 2][j] != 0)))
 						{
 							board[i][j] = player;
-							move_counter++;
 							break;
 						}
 						else
@@ -401,6 +400,57 @@ void move(int  **board, int height, int width, int h_pos, int w_pos, int player)
 					}
 				}
 				break;
+			}
+		}
+		break;
+	}
+	}
+}
+
+void check_possible_moves(int **board, int height, int width, bool **possible_moves)
+{
+	switch (move_counter)
+	{
+	case 0:
+	{
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				possible_moves[i][j] = true;
+			}
+		}
+		break;
+	}
+	case 1:
+	{
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				if (board[i][j] != 0)
+				{
+					possible_moves[i - 2][j - 2] = true;
+					possible_moves[i][j - 2] != true;
+					possible_moves[i + 2][j - 2] != true;
+					possible_moves[i - 2][j + 2] != true;
+					possible_moves[i][j + 2] != true;
+					possible_moves[i + 2][j + 2] != true;
+				}
+			}
+		}
+		break;
+	}
+	case 2:
+	{
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				/*if (board[i][j] != 0)
+				{
+				//TODO
+				}*/
 			}
 		}
 		break;
