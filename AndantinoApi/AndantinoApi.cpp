@@ -303,6 +303,9 @@ int checkWinForTwoPlayers(int **board)
 
 void move(int  **board, int height, int width, int h_pos, int w_pos, int player)
 {
+
+	//experimental change, pleas remote below line of code and repair commit
+	int move_counter = 0;
 	switch (move_counter)
 	{
 	case 0:
