@@ -4,6 +4,7 @@ class GlobalBoard
 {
 public:
 	GlobalBoard(int boardWidth, int boardHeight);
+	GlobalBoard(Move** board);
 	void clearBoard();
 	Move** getDuplicatedBoard();
 	void setBoardValue(int width, int height, Move value);

@@ -1,7 +1,8 @@
 #pragma once
 
 #include "GlobalBoard.h"
-
+#include <cstdio>
+#include <vector>
 
 struct AIMove
 {
@@ -16,17 +17,17 @@ struct AIMove
 class AI
 {
 public:
+	AI(GlobalBoard &board,int maxDepth) : _board(board),_maxDepth(maxDepth) {}
+	void performMove();
+	GlobalBoard _board;
 	bool** checkPossibleMoves();
-	AI(GlobalBoard &board) : _board(board) {}
-	void performMove(GlobalBoard &board);
-
 private:
-	AIMove getBestMove(GlobalBoard &board);
-	
-	AIMove checkWin();
+	int _maxDepth;
+	AIMove getBestMove(GlobalBoard &board, Move player,int depth);
+	AIMove chooseBestMove(std::vector<AIMove> moves, Move player);
+	bool checkWin(int player);
 	int _AIPlayer;
 	int _humanPlayer;
-	GlobalBoard _board;
 	bool** createPossibleMoves();
 	int totalMoves();
 	bool checkSinglePossibleMove(int heightAddres, int widthAddres);

@@ -29,6 +29,32 @@ void print_board(int **board, int h, int w)
 	printf("\n");
 }
 
+void print_board(bool **board, int h, int w)
+{
+	for (int i = 0; i < h; i++)
+	{
+		cout << endl;
+		for (int j = 0; j < w; j++)
+		{
+			cout << (int)board[i][j];
+		}
+	}
+	printf("\n");
+}
+
+void print_board(Move **board, int h, int w)
+{
+
+	for (int i = 0; i < h; i++)
+	{
+		cout << endl;
+		for (int j = 0; j < w; j++)
+		{
+			cout << board[i][j];
+		}
+	}
+	printf("\n");
+}
 bool checkRing(int heightAddres, int widthAddres, int **board, int p)
 {
 	typedef std::list<Ally*> alliesList;
@@ -301,153 +327,6 @@ int checkWinForTwoPlayers(int **board)
 		return CheckWin(board, boardWidth, boardHeight, -1) == true ? -1 : 0;
 	}
 }
-
-//
-////postawienie pionka
-//void move(int  **board, int height, int width, int h_pos, int w_pos, int player)
-//{
-//
-//	//experimental change, pleas remote below line of code and repair commit
-//	int move_counter = 0;
-//	switch (move_counter)
-//	{
-//		case 0:
-//		{
-//			for (int i = 0; i < height; i++)
-//			{
-//				if (h_pos == i)
-//				{
-//					for (int j = 0; j < width; j++)
-//					{
-//						if (w_pos == j)
-//						{
-//							board[i][j] = player;
-//							move_counter++;
-//							break;
-//						}
-//					}
-//					break;
-//				}
-//			}
-//			break;
-//		}
-//		case 1:
-//		{
-//			for (int i = 0; i < height; i++)
-//			{
-//				if (h_pos == i)
-//				{
-//					for (int j = 0; j < width; j++)
-//					{
-//						if (w_pos == j)
-//						{
-//							if (board[i - 2][j - 2] != 0 || board[i][j - 2] != 0 || board[i + 2][j - 2] != 0 || board[i - 2][j] != 0 || board[i + 2][j] != 0 || board[i - 2][j + 2] != 0 || board[i][j + 2] != 0 || board[i + 2][j + 2] != 0)
-//							{
-//								board[i][j] = player;
-//								move_counter++;
-//								break;
-//							}
-//							else
-//							{
-//								cout << "ruch niedozwolony";
-//							}
-//						}
-//					}
-//					break;
-//				}
-//			}
-//			break;
-//		}
-//		case 2:
-//		{
-//			for (int i = 0; i < height; i++)
-//			{
-//				if (h_pos == i)
-//				{
-//					for (int j = 0; j < width; j++)
-//					{
-//						if (w_pos == j)
-//						{
-//<<<<<<< HEAD
-//							if (((board[i - 2][j - 2] != 0) && (board[i - 2][j] != 0)) || ((board[i - 2][j] != 0) && (board[i - 2][j + 2] != 0)) || board[i + 2][j - 2] != 0 || ((board[i][j - 2] != 0) && (board[i + 2][j - 2] != 0)) || ((board[i + 2][j - 2] != 0) && (board[i + 2][j] != 0)) || ((board[i + 2][j] != 0) && (board[i + 2][j] != 0)) || ((board[i - 2][j + 2] != 0) && (board[i][j + 2] != 0)) || ((board[i][j + 2] != 0) && (board[i + 2][j] != 0)))
-//							{
-//								board[i][j] = player;
-//								move_counter++;
-//								break;
-//							}
-//							else
-//							{
-//								cout << "ruch niedozwolony";
-//							}
-//=======
-//							board[i][j] = player;
-//							break;
-//						}
-//						else
-//						{
-//							cout << "ruch niedozwolony";
-//>>>>>>> 5ac7c667756292985bfc01e64a7a9c1a3133ea02
-//						}
-//					}
-//					break;
-//				}
-//			}
-//			break;
-//		}
-//	}
-//}
-//
-//void check_possible_moves(int **board, int height, int width, bool **possible_moves)
-//{
-//	switch (move_counter)
-//	{
-//	case 0:
-//	{
-//		for (int i = 0; i < height; i++)
-//		{
-//			for (int j = 0; j < width; j++)
-//			{
-//				possible_moves[i][j] = true;
-//			}
-//		}
-//		break;
-//	}
-//	case 1:
-//	{
-//		for (int i = 0; i < height; i++)
-//		{
-//			for (int j = 0; j < width; j++)
-//			{
-//				if (board[i][j] != 0)
-//				{
-//					possible_moves[i - 2][j - 2] = true;
-//					possible_moves[i][j - 2] != true;
-//					possible_moves[i + 2][j - 2] != true;
-//					possible_moves[i - 2][j + 2] != true;
-//					possible_moves[i][j + 2] != true;
-//					possible_moves[i + 2][j + 2] != true;
-//				}
-//			}
-//		}
-//		break;
-//	}
-//	case 2:
-//	{
-//		for (int i = 0; i < height; i++)
-//		{
-//			for (int j = 0; j < width; j++)
-//			{
-//				/*if (board[i][j] != 0)
-//				{
-//				//TODO
-//				}*/
-//			}
-//		}
-//		break;
-//	}
-//	}
-//}
-
 int main()
 {
 	int option = 0;
@@ -461,21 +340,15 @@ int main()
 		}
 	}
 
-	GlobalBoard *globalBoard = new GlobalBoard(10, 10);
+	GlobalBoard *globalBoard = new GlobalBoard(10,10);
+
+	globalBoard->setBoardValue(0, 2, Bot);
 	globalBoard->setBoardValue(2, 2, Player);
-	globalBoard->setBoardValue(2, 3, Player);
-	AI *ai = new AI(*globalBoard);
-
-	auto result = ai->checkPossibleMoves();
-
-	for (int i = 0; i < 9; i++)
-	{
-		for (int j = 0; j < 9; j++)
-		{
-			cout<<result[j][i];
-		}
-		cout << "\n";
-	}
+	globalBoard->setBoardValue(2, 4, Player);
+	AI *ai = new AI(*globalBoard,3);
+	print_board(ai->checkPossibleMoves(),20,20);
+	ai->performMove();
+	print_board(ai->_board.getDuplicatedBoard(),20,20);
 
 	do
 	{

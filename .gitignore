@@ -3,7 +3,8 @@
 *.lo
 *.o
 *.obj
-
+/.vs/*
+/packages
 #Debug and VC files
 *.VC.db
 *.VC.VC.opendb

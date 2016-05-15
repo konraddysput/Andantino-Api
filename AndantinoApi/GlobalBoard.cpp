@@ -4,8 +4,8 @@
 
 
 GlobalBoard::GlobalBoard(int boardWidth, int boardHeight) {
-	_boardWidth = boardWidth;
-	_boardHeight = boardHeight;
+	_boardWidth = boardWidth*2;
+	_boardHeight = boardHeight*2;
 
 	_duplicationBoard = new Move *[_boardWidth];
 	for (int i = 0; i < _boardWidth; ++i)
@@ -18,12 +18,18 @@ GlobalBoard::GlobalBoard(int boardWidth, int boardHeight) {
 	}
 }
 
+GlobalBoard::GlobalBoard(Move** board) {
+	_boardWidth = 20;
+	_boardHeight = 20;
+	_duplicationBoard = board;
+}
+
 Move** GlobalBoard::getDuplicatedBoard() {
 	return _duplicationBoard;
 }
 Move GlobalBoard::getBoardValue(int width, int height) {
-	if (height < 0 || width < 0) {
-		return Out;
+	if (height < 0 || width < 0 || width>=getBoardWidth() || height>=getBoardHeight()) {
+		return None;
 	}
 	return _duplicationBoard[width][height];
 }
@@ -45,9 +51,9 @@ void GlobalBoard::clearBoard() {
 	}
 }
 int GlobalBoard::getBoardHeight() {
-	return _boardHeight -1;
+	return _boardHeight;
 }
 
 int GlobalBoard::getBoardWidth() {
-	return _boardWidth -1;
+	return _boardWidth;
 }
