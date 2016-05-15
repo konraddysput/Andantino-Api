@@ -302,91 +302,151 @@ int checkWinForTwoPlayers(int **board)
 	}
 }
 
-
-//postawienie pionka
-void move(int  **board, int height, int width, int h_pos, int w_pos, int player)
-{
-
-	//experimental change, pleas remote below line of code and repair commit
-	int move_counter = 0;
-	switch (move_counter)
-	{
-		case 0:
-		{
-			for (int i = 0; i < height; i++)
-			{
-				if (h_pos == i)
-				{
-					for (int j = 0; j < width; j++)
-					{
-						if (w_pos == j)
-						{
-							board[i][j] = player;
-							move_counter++;
-							break;
-						}
-					}
-					break;
-				}
-			}
-			break;
-		}
-		case 1:
-		{
-			for (int i = 0; i < height; i++)
-			{
-				if (h_pos == i)
-				{
-					for (int j = 0; j < width; j++)
-					{
-						if (w_pos == j)
-						{
-							if (board[i - 2][j - 2] != 0 || board[i][j - 2] != 0 || board[i + 2][j - 2] != 0 || board[i - 2][j] != 0 || board[i + 2][j] != 0 || board[i - 2][j + 2] != 0 || board[i][j + 2] != 0 || board[i + 2][j + 2] != 0)
-							{
-								board[i][j] = player;
-								move_counter++;
-								break;
-							}
-							else
-							{
-								cout << "ruch niedozwolony";
-							}
-						}
-					}
-					break;
-				}
-			}
-			break;
-		}
-		case 2:
-		{
-			for (int i = 0; i < height; i++)
-			{
-				if (h_pos == i)
-				{
-					for (int j = 0; j < width; j++)
-					{
-						if (w_pos == j)
-						{
-							if (((board[i - 2][j - 2] != 0) && (board[i - 2][j] != 0)) || ((board[i - 2][j] != 0) && (board[i - 2][j + 2] != 0)) || board[i + 2][j - 2] != 0 || ((board[i][j - 2] != 0) && (board[i + 2][j - 2] != 0)) || ((board[i + 2][j - 2] != 0) && (board[i + 2][j] != 0)) || ((board[i + 2][j] != 0) && (board[i + 2][j] != 0)) || ((board[i - 2][j + 2] != 0) && (board[i][j + 2] != 0)) || ((board[i][j + 2] != 0) && (board[i + 2][j] != 0)))
-							{
-								board[i][j] = player;
-								move_counter++;
-								break;
-							}
-							else
-							{
-								cout << "ruch niedozwolony";
-							}
-						}
-					}
-					break;
-				}
-			}
-			break;
-		}
-	}
-}
+//
+////postawienie pionka
+//void move(int  **board, int height, int width, int h_pos, int w_pos, int player)
+//{
+//
+//	//experimental change, pleas remote below line of code and repair commit
+//	int move_counter = 0;
+//	switch (move_counter)
+//	{
+//		case 0:
+//		{
+//			for (int i = 0; i < height; i++)
+//			{
+//				if (h_pos == i)
+//				{
+//					for (int j = 0; j < width; j++)
+//					{
+//						if (w_pos == j)
+//						{
+//							board[i][j] = player;
+//							move_counter++;
+//							break;
+//						}
+//					}
+//					break;
+//				}
+//			}
+//			break;
+//		}
+//		case 1:
+//		{
+//			for (int i = 0; i < height; i++)
+//			{
+//				if (h_pos == i)
+//				{
+//					for (int j = 0; j < width; j++)
+//					{
+//						if (w_pos == j)
+//						{
+//							if (board[i - 2][j - 2] != 0 || board[i][j - 2] != 0 || board[i + 2][j - 2] != 0 || board[i - 2][j] != 0 || board[i + 2][j] != 0 || board[i - 2][j + 2] != 0 || board[i][j + 2] != 0 || board[i + 2][j + 2] != 0)
+//							{
+//								board[i][j] = player;
+//								move_counter++;
+//								break;
+//							}
+//							else
+//							{
+//								cout << "ruch niedozwolony";
+//							}
+//						}
+//					}
+//					break;
+//				}
+//			}
+//			break;
+//		}
+//		case 2:
+//		{
+//			for (int i = 0; i < height; i++)
+//			{
+//				if (h_pos == i)
+//				{
+//					for (int j = 0; j < width; j++)
+//					{
+//						if (w_pos == j)
+//						{
+//<<<<<<< HEAD
+//							if (((board[i - 2][j - 2] != 0) && (board[i - 2][j] != 0)) || ((board[i - 2][j] != 0) && (board[i - 2][j + 2] != 0)) || board[i + 2][j - 2] != 0 || ((board[i][j - 2] != 0) && (board[i + 2][j - 2] != 0)) || ((board[i + 2][j - 2] != 0) && (board[i + 2][j] != 0)) || ((board[i + 2][j] != 0) && (board[i + 2][j] != 0)) || ((board[i - 2][j + 2] != 0) && (board[i][j + 2] != 0)) || ((board[i][j + 2] != 0) && (board[i + 2][j] != 0)))
+//							{
+//								board[i][j] = player;
+//								move_counter++;
+//								break;
+//							}
+//							else
+//							{
+//								cout << "ruch niedozwolony";
+//							}
+//=======
+//							board[i][j] = player;
+//							break;
+//						}
+//						else
+//						{
+//							cout << "ruch niedozwolony";
+//>>>>>>> 5ac7c667756292985bfc01e64a7a9c1a3133ea02
+//						}
+//					}
+//					break;
+//				}
+//			}
+//			break;
+//		}
+//	}
+//}
+//
+//void check_possible_moves(int **board, int height, int width, bool **possible_moves)
+//{
+//	switch (move_counter)
+//	{
+//	case 0:
+//	{
+//		for (int i = 0; i < height; i++)
+//		{
+//			for (int j = 0; j < width; j++)
+//			{
+//				possible_moves[i][j] = true;
+//			}
+//		}
+//		break;
+//	}
+//	case 1:
+//	{
+//		for (int i = 0; i < height; i++)
+//		{
+//			for (int j = 0; j < width; j++)
+//			{
+//				if (board[i][j] != 0)
+//				{
+//					possible_moves[i - 2][j - 2] = true;
+//					possible_moves[i][j - 2] != true;
+//					possible_moves[i + 2][j - 2] != true;
+//					possible_moves[i - 2][j + 2] != true;
+//					possible_moves[i][j + 2] != true;
+//					possible_moves[i + 2][j + 2] != true;
+//				}
+//			}
+//		}
+//		break;
+//	}
+//	case 2:
+//	{
+//		for (int i = 0; i < height; i++)
+//		{
+//			for (int j = 0; j < width; j++)
+//			{
+//				/*if (board[i][j] != 0)
+//				{
+//				//TODO
+//				}*/
+//			}
+//		}
+//		break;
+//	}
+//	}
+//}
 
 int main()
 {

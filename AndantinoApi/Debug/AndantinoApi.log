@@ -1,4 +1,4 @@
-﻿Build started 15.05.2016 13:52:35.
+﻿Build started 15.05.2016 13:54:34.
      1>Project "C:\Users\Konrad\Documents\Repos\Andantino API\AndantinoApi\AndantinoApi.vcxproj" on node 2 (Build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\AndantinoApi.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -6,7 +6,7 @@
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt AndantinoApi.cpp
          AndantinoApi.cpp
      1>c:\users\konrad\documents\repos\andantino api\andantinoapi\andantinoapi.cpp(96): warning C4805: '==': unsafe mix of type 'Move' and type 'bool' in operation
-     1>c:\users\konrad\documents\repos\andantino api\andantinoapi\andantinoapi.cpp(423): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\konrad\documents\repos\andantino api\andantinoapi\andantinoapi.cpp(483): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
          c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1270): note: see declaration of 'scanf'
      1>c:\users\konrad\documents\repos\andantino api\andantinoapi\andantinoapi.cpp(109): warning C4715: 'checkRing': not all control paths return a value
        Link:
@@ -23,4 +23,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.59
+Time Elapsed 00:00:01.50
