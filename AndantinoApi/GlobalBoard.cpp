@@ -23,7 +23,7 @@ Move** GlobalBoard::getDuplicatedBoard() {
 }
 Move GlobalBoard::getBoardValue(int width, int height) {
 	if (height < 0 || width < 0) {
-		throw std::invalid_argument("Bad argument passed");
+		return Out;
 	}
 	return _duplicationBoard[width][height];
 }
@@ -43,4 +43,11 @@ void GlobalBoard::clearBoard() {
 			_duplicationBoard[i][j] = None;
 		}
 	}
+}
+int GlobalBoard::getBoardHeight() {
+	return _boardHeight -1;
+}
+
+int GlobalBoard::getBoardWidth() {
+	return _boardWidth -1;
 }

@@ -7,6 +7,7 @@
 #include "Ally.h"
 #include "GlobalBoard.h"
 #include "AndantinoApi.h"
+#include "AI.h"
 using namespace std;
 
 
@@ -41,7 +42,7 @@ bool checkRing(int heightAddres, int widthAddres, int **board, int p)
 	}
 
 
-	globalVar->setBoardValue(heightAddres, widthAddres, AI);
+	globalVar->setBoardValue(heightAddres, widthAddres, Bot);
 	if (board[heightAddres][widthAddres] == p)
 	{
 		if (board[heightAddres + 1][widthAddres - 1] != (p*(-1)))
@@ -301,6 +302,8 @@ int checkWinForTwoPlayers(int **board)
 	}
 }
 
+
+//postawienie pionka
 void move(int  **board, int height, int width, int h_pos, int w_pos, int player)
 {
 
@@ -308,80 +311,80 @@ void move(int  **board, int height, int width, int h_pos, int w_pos, int player)
 	int move_counter = 0;
 	switch (move_counter)
 	{
-	case 0:
-	{
-		for (int i = 0; i < height; i++)
+		case 0:
 		{
-			if (h_pos == i)
+			for (int i = 0; i < height; i++)
 			{
-				for (int j = 0; j < width; j++)
+				if (h_pos == i)
 				{
-					if (w_pos == j)
+					for (int j = 0; j < width; j++)
 					{
-						board[i][j] = player;
-						move_counter++;
-						break;
-					}
-				}
-				break;
-			}
-		}
-		break;
-	}
-	case 1:
-	{
-		for (int i = 0; i < height; i++)
-		{
-			if (h_pos == i)
-			{
-				for (int j = 0; j < width; j++)
-				{
-					if (w_pos == j)
-					{
-						if (board[i - 2][j - 2] != 0 || board[i][j - 2] != 0 || board[i + 2][j - 2] != 0 || board[i - 2][j] != 0 || board[i + 2][j] != 0 || board[i - 2][j + 2] != 0 || board[i][j + 2] != 0 || board[i + 2][j + 2] != 0)
+						if (w_pos == j)
 						{
 							board[i][j] = player;
 							move_counter++;
 							break;
 						}
-						else
-						{
-							cout << "ruch niedozwolony";
-						}
 					}
+					break;
 				}
-				break;
 			}
+			break;
 		}
-		break;
-	}
-	case 2:
-	{
-		for (int i = 0; i < height; i++)
+		case 1:
 		{
-			if (h_pos == i)
+			for (int i = 0; i < height; i++)
 			{
-				for (int j = 0; j < width; j++)
+				if (h_pos == i)
 				{
-					if (w_pos == j)
+					for (int j = 0; j < width; j++)
 					{
-						if (((board[i - 2][j - 2] != 0) && (board[i - 2][j] != 0)) || ((board[i - 2][j] != 0) && (board[i - 2][j + 2] != 0)) || board[i + 2][j - 2] != 0 || ((board[i][j - 2] != 0) && (board[i + 2][j - 2] != 0)) || ((board[i + 2][j - 2] != 0) && (board[i + 2][j] != 0)) || ((board[i + 2][j] != 0) && (board[i + 2][j] != 0)) || ((board[i - 2][j + 2] != 0) && (board[i][j + 2] != 0)) || ((board[i][j + 2] != 0) && (board[i + 2][j] != 0)))
+						if (w_pos == j)
 						{
-							board[i][j] = player;
-							move_counter++;
-							break;
-						}
-						else
-						{
-							cout << "ruch niedozwolony";
+							if (board[i - 2][j - 2] != 0 || board[i][j - 2] != 0 || board[i + 2][j - 2] != 0 || board[i - 2][j] != 0 || board[i + 2][j] != 0 || board[i - 2][j + 2] != 0 || board[i][j + 2] != 0 || board[i + 2][j + 2] != 0)
+							{
+								board[i][j] = player;
+								move_counter++;
+								break;
+							}
+							else
+							{
+								cout << "ruch niedozwolony";
+							}
 						}
 					}
+					break;
 				}
-				break;
 			}
+			break;
 		}
-		break;
-	}
+		case 2:
+		{
+			for (int i = 0; i < height; i++)
+			{
+				if (h_pos == i)
+				{
+					for (int j = 0; j < width; j++)
+					{
+						if (w_pos == j)
+						{
+							if (((board[i - 2][j - 2] != 0) && (board[i - 2][j] != 0)) || ((board[i - 2][j] != 0) && (board[i - 2][j + 2] != 0)) || board[i + 2][j - 2] != 0 || ((board[i][j - 2] != 0) && (board[i + 2][j - 2] != 0)) || ((board[i + 2][j - 2] != 0) && (board[i + 2][j] != 0)) || ((board[i + 2][j] != 0) && (board[i + 2][j] != 0)) || ((board[i - 2][j + 2] != 0) && (board[i][j + 2] != 0)) || ((board[i][j + 2] != 0) && (board[i + 2][j] != 0)))
+							{
+								board[i][j] = player;
+								move_counter++;
+								break;
+							}
+							else
+							{
+								cout << "ruch niedozwolony";
+							}
+						}
+					}
+					break;
+				}
+			}
+			break;
+		}
 	}
 }
 
@@ -397,6 +400,23 @@ int main()
 			board[i][j] = 0;
 		}
 	}
+
+	GlobalBoard *globalBoard = new GlobalBoard(10, 10);
+	globalBoard->setBoardValue(2, 2, Player);
+	globalBoard->setBoardValue(2, 3, Player);
+	AI *ai = new AI(*globalBoard);
+
+	auto result = ai->checkPossibleMoves();
+
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = 0; j < 9; j++)
+		{
+			cout<<result[j][i];
+		}
+		cout << "\n";
+	}
+
 	do
 	{
 		printf("Podaj opcje \n");

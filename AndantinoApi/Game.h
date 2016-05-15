@@ -1,3 +1,3 @@
 #pragma once
 
-enum Move{AI,Player,None};
+enum Move{Bot,Player,None,Out};

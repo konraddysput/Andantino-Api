@@ -8,9 +8,11 @@ public:
 	Move** getDuplicatedBoard();
 	void setBoardValue(int width, int height, Move value);
 	Move getBoardValue(int width, int height);
+	int getBoardWidth();
+	int getBoardHeight();
 
 private:
-	Move** _duplicationBoard;
+	Move** _duplicationBoard; // aby sprawdzic czy dane pole bylo juz brane pod uwage 
 	int _boardHeight;
 	int _boardWidth;
 };
