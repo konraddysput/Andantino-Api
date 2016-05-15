@@ -27,6 +27,18 @@
     <ClInclude Include="AndantinoApi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Ally.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalBoard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -35,5 +47,17 @@
     <ClCompile Include="AndantinoApi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ally.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\algorithm" />
   </ItemGroup>
 </Project>
