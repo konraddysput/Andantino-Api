@@ -22,6 +22,7 @@ public:
 	GlobalBoard _board;
 	bool** checkPossibleMoves();
 	Move CheckWin();
+	int totalMoves();
 	~AI();
 private:
 	int _maxDepth;
@@ -31,6 +32,6 @@ private:
 	int _AIPlayer;
 	int _humanPlayer;
 	bool** createPossibleMoves();
-	int totalMoves();
+	//int totalMoves();
 	bool checkSinglePossibleMove(int heightAddres, int widthAddres);
 };

@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/foreach.hpp>
@@ -93,19 +92,24 @@ int main()
 		AI *ai = new AI(*board, 5);
 
 		AIMove move = ai->performMove();
-		//Move win = ai->CheckWin();
-		//if (win == None) {
+		Move win = None;
+		if (ai->totalMoves() > 10)
+		{
+			win = ai->CheckWin();
+		}
+		if (win == None) {
 			board->~GlobalBoard();
 			free(ai);
 			std::string jsonResult = "MainView.PerformMove({'x': '" + std::to_string(move._x) + "','y':'" + std::to_string(move._y) + "',winner:0})";;
 			return jsonResult;
-		//}
+		}
 
-		//board->~GlobalBoard();
-		//free(ai);
+		board->~GlobalBoard();
+		free(ai);
 
-		//std::string jsonResult = "MainView.PerformMove({'x': '0','y':'0',winner:" + std::to_string(win) + "})";
-		//return jsonResult;
+		std::string jsonResult = "MainView.PerformMove({'x': '0','y':'0',winner:" + std::to_string(win) + "})";
+		return jsonResult;
+		
 	});
 
 

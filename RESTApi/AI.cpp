@@ -48,6 +48,40 @@ bool AI::checkWin(int player) {
 						}
 					}
 				}
+				if (j - 4 >= 0 && i + 4 < _board.getBoardHeight())
+				{
+					for (int k = 0; k < 5; k++)
+					{
+						if (_board.getBoardValue(i + k, j - k) == player)
+						{
+							howManyMatches++;
+							if (howManyMatches == 5)
+								return true;
+						}
+						else
+						{
+							howManyMatches = 0;
+							break;
+						}
+					}
+				}
+				if (j + 4 >= 0 && i + 4 < _board.getBoardHeight())
+				{
+					for (int k = 0; k < 5; k++)
+					{
+						if (_board.getBoardValue(i + k, j + k) == player)
+						{
+							howManyMatches++;
+							if (howManyMatches == 5)
+								return true;
+						}
+						else
+						{
+							howManyMatches = 0;
+							break;
+						}
+					}
+				}
 			}
 		if (i % 2 != 0)
 			for (int j = 1; j < _board.getBoardWidth(); j += 2)
@@ -69,11 +103,28 @@ bool AI::checkWin(int player) {
 						}
 					}
 				}
+				if (j - 4 >= 0 && i + 4 >= 0)
+				{
+					for (int k = 0; k < 5; k++)
+					{
+						if (_board.getBoardValue(i + k, j - k) == player)
+						{
+							howManyMatches++;
+							if (howManyMatches == 5)
+								return true;
+						}
+						else
+						{
+							howManyMatches = 0;
+							break;
+						}
+					}
+				}
 			}
 	}
 	//Sprawdzanie w poziomie - END
 	//Sprawdzanei Skos /  -Begin
-	for (int i = 0; i < _board.getBoardHeight(); i++)
+	/*for (int i = 0; i < _board.getBoardHeight(); i++)
 	{
 		if (i % 2 == 0)
 		{
@@ -119,8 +170,8 @@ bool AI::checkWin(int player) {
 					}
 				}
 			}
-		}
-		if (i % 2 != 0)
+		}*/
+		/*if (i % 2 != 0)
 		{
 			howManyMatches = 0;
 			for (int j = 1; j < _board.getBoardWidth(); j += 2)
@@ -163,9 +214,9 @@ bool AI::checkWin(int player) {
 						}
 					}
 				}
-			}
-		}
-	}
+			}*/
+		//}
+	//}
 	//Sprawdzanei Skos /  -END
 	//Sprawdzanie otoczonych -BEGIN
 	/*int **boardTemp = new int *[_board.getBoardWidth()];
