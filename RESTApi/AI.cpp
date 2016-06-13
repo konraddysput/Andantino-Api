@@ -67,7 +67,7 @@ bool AI::checkWin(int player) {
 						if (_board.getBoardValue(i, j + k) == player)
 						{
 							howManyMatches++;
-							if (howManyMatches == 5)
+							if (howManyMatches == 4)
 								return true;
 						}
 						else
@@ -84,7 +84,7 @@ bool AI::checkWin(int player) {
 						if (_board.getBoardValue(i + k, j - k) == player)
 						{
 							howManyMatches++;
-							if (howManyMatches == 5)
+							if (howManyMatches == 4)
 								return true;
 						}
 						else
@@ -122,7 +122,7 @@ bool AI::checkWin(int player) {
 						if (_board.getBoardValue(i, j + k) == player)
 						{
 							howManyMatches++;
-							if (howManyMatches == 5)
+							if (howManyMatches == 4)
 								return true;
 						}
 						else
