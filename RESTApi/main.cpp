@@ -93,7 +93,7 @@ int main()
 
 		AIMove move = ai->performMove();
 		Move win = None;
-		if (ai->totalMoves() > 10)
+		if (ai->totalMoves() > 9)
 		{
 			win = ai->CheckWin();
 		}

@@ -1,7 +1,10 @@
 #include "AI.h"
+#include "Ally.h"
 #include <cstdio>
 #include <vector>
 #include <limits>
+#include <list>
+using namespace std;
 
 Move AI::CheckWin() {
 	bool win = checkWin(Bot);
@@ -19,13 +22,39 @@ Move AI::CheckWin() {
 
 }
 
+class globalVariables {
+public:
+	bool **duplicationBoard;
+	globalVariables()
+	{
+		duplicationBoard = new bool *[20];
+		for (int i = 0; i < 20; ++i)
+		{
+			duplicationBoard[i] = new bool[20];
+			for (int j = 0; j < 20; j++)
+			{
+				duplicationBoard[i][j] = false;
+			}
+		}
+	}
+
+	void clearBoard()
+	{
+		for (int i = 0; i < 20; i++)
+			for (int j = 0; j < 20; j++)
+				duplicationBoard[i][j] = false;
+	}
+};
+globalVariables globalVar;
+
 AIMove AI::performMove() {
 	return getBestMove(_board, Bot, 0);
 }
+
 bool AI::checkWin(int player) {
 
 	int howManyMatches = 0;
-	//Sprawdzanie w poziomie - BEGIN
+
 	for (int i = 0; i < _board.getBoardHeight(); i++)
 	{
 		if (i % 2 == 0)
@@ -122,113 +151,82 @@ bool AI::checkWin(int player) {
 				}
 			}
 	}
-	//Sprawdzanie w poziomie - END
-	//Sprawdzanei Skos /  -Begin
-	/*for (int i = 0; i < _board.getBoardHeight(); i++)
-	{
-		if (i % 2 == 0)
-		{
-			howManyMatches = 0;
-			for (int j = 0; j < _board.getBoardWidth(); j += 2)
-			{
-				if (j - 4 >= 0 && i + 4 < _board.getBoardHeight())
-				{
-					for (int k = 0; k < 5; k++)
-					{
-						if (_board.getBoardValue(i + k, j - k) == player)
-						{
-							howManyMatches++;
-							if (howManyMatches == 5)
-								return true;
-						}
-						else
-						{
-							howManyMatches = 0;
-							break;
-						}
-					}
-				}
-			}
-			howManyMatches = 0;
-			for (int j = 0; j < _board.getBoardWidth(); j += 2)
-			{
-				if (j + 4 >= 0 && i + 4 < _board.getBoardHeight())
-				{
-					for (int k = 0; k < 5; k++)
-					{
-						if (_board.getBoardValue(i + k, j + k) == player)
-						{
-							howManyMatches++;
-							if (howManyMatches == 5)
-								return true;
-						}
-						else
-						{
-							howManyMatches = 0;
-							break;
-						}
-					}
-				}
-			}
-		}*/
-		/*if (i % 2 != 0)
-		{
-			howManyMatches = 0;
-			for (int j = 1; j < _board.getBoardWidth(); j += 2)
-			{
-				if (j - 4 >= 0 && i + 4 >= 0)
-				{
-					for (int k = 0; k < 5; k++)
-					{
-						if (_board.getBoardValue(i + k, j - k) == player)
-						{
-							howManyMatches++;
-							if (howManyMatches == 5)
-								return true;
-						}
-						else
-						{
-							howManyMatches = 0;
-							break;
-						}
-					}
-				}
-			}
-			howManyMatches = 0;
-			for (int j = 1; j < _board.getBoardWidth(); j += 2)
-			{
-				if (j - 4 >= 0 && i + 4 >= 0)
-				{
-					for (int k = 0; k < 5; k++)
-					{
-						if (_board.getBoardValue(i + k, j - k) == player)
-						{
-							howManyMatches++;
-							if (howManyMatches == 5)
-								return true;
-						}
-						else
-						{
-							howManyMatches = 0;
-							break;
-						}
-					}
-				}
-			}*/
-		//}
-	//}
-	//Sprawdzanei Skos /  -END
-	//Sprawdzanie otoczonych -BEGIN
-	/*int **boardTemp = new int *[_board.getBoardWidth()];
-	for (int i = 0; i < _board.getBoardWidth(); ++i)
-	{
-		boardTemp[i] = new int[_board.getBoardHeight()];
-		for (int j = 0; j < _board.getBoardHeight(); j++)
-		{
-			boardTemp[i][j] = 0;
-		}
-	}*/
 	return false;
+}
+
+bool AI::checkRing(GlobalBoard &board, int player, int heightAddres, int widthAddres)
+{
+
+	bool closed[6];
+	for (int i = 0; i < 6; i++)
+		closed[i] = true;
+
+	bool status = false;
+	globalVar.duplicationBoard[heightAddres][widthAddres] = true;
+
+	if (_board.getBoardValue(widthAddres, heightAddres) == player)
+	{
+		if (_board.getBoardValue(widthAddres + 1, heightAddres - 1) == player || _board.getBoardValue(widthAddres + 1, heightAddres - 1) == None)
+		{
+			if (_board.getBoardValue(widthAddres + 1, heightAddres - 1) == player)
+				Ally::listOfAllies.push_back(new Ally(widthAddres + 1, heightAddres - 1));
+			else
+				closed[0] = false;
+		}
+		if (_board.getBoardValue(widthAddres - 1, heightAddres - 1) == player || _board.getBoardValue(widthAddres - 1, heightAddres - 1) == None)
+		{
+			if (_board.getBoardValue(widthAddres - 1, heightAddres + 1) == player)
+				Ally::listOfAllies.push_back(new Ally(widthAddres - 1, heightAddres - 1));
+			else
+				closed[1] = false;
+		}
+		if (_board.getBoardValue(widthAddres - 1, heightAddres + 1) == player || _board.getBoardValue(widthAddres - 1, heightAddres + 1) == None)
+		{
+			if (_board.getBoardValue(widthAddres - 1, heightAddres + 1) == player)
+				Ally::listOfAllies.push_back(new Ally(widthAddres - 1, heightAddres + 1));
+			else
+				closed[2] = false;
+		}
+		if (_board.getBoardValue(widthAddres + 1, heightAddres + 1) == player || _board.getBoardValue(widthAddres + 1, heightAddres + 1) == None)
+		{
+			if (_board.getBoardValue(widthAddres + 1, heightAddres + 1) == player)
+				Ally::listOfAllies.push_back(new Ally(widthAddres + 1, heightAddres - 1));
+			else
+				closed[3] = false;
+		}
+		if (_board.getBoardValue(widthAddres, heightAddres - 2) == player || _board.getBoardValue(widthAddres, heightAddres - 2) == None)
+		{
+			if (_board.getBoardValue(widthAddres, heightAddres - 2) == player)
+				Ally::listOfAllies.push_back(new Ally(widthAddres, heightAddres - 2));
+			else
+				closed[4] = false;
+		}
+		if (_board.getBoardValue(widthAddres, heightAddres + 2) == player || _board.getBoardValue(widthAddres, heightAddres + 2) == None)
+		{
+			if (_board.getBoardValue(widthAddres, heightAddres + 2) == player)
+				Ally::listOfAllies.push_back(new Ally(widthAddres, heightAddres + 2));
+			else
+				closed[5] = false;
+		}
+	}
+
+
+	for (Ally::it = Ally::listOfAllies.begin();
+		Ally::it != Ally::listOfAllies.end();
+		Ally::it++)
+	{
+		if (globalVar.duplicationBoard[(*Ally::it)->getHeight][(*Ally::it)->getWidth] == false)
+			if (checkRing(_board, player, (*Ally::it)->getHeight, (*Ally::it)->getWidth) == false)
+				return false;
+
+	}
+	for (int i = 0; i < 6; i++)
+	{
+		if (closed[i] == false)
+
+			return false;
+	}
+	return true;
 }
 
 AIMove AI::chooseBestMove(std::vector<AIMove> &moves, Move& player) {
@@ -276,7 +274,7 @@ AIMove AI::getBestMove(GlobalBoard &board, Move player, int depth) {
 	{
 		for (size_t boardWidth = 0; boardWidth < board.getBoardWidth(); boardWidth++)
 		{
-			if (checkSinglePossibleMove(boardHeight,boardWidth)) {
+			if (checkSinglePossibleMove(boardHeight, boardWidth)) {
 				AIMove move;
 				move._x = boardWidth;
 				move._y = boardHeight;
