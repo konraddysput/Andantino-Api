@@ -23,7 +23,7 @@ public:
 	bool** checkPossibleMoves();
 	Move CheckWin();
 	int totalMoves();
-	bool checkRing(GlobalBoard &board, int player, int heightAddres, int widthAddres);
+	//bool checkRing(GlobalBoard &board, int player, int heightAddres, int widthAddres);
 	~AI();
 private:
 	int _maxDepth;

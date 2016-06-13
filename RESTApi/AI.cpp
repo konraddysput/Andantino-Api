@@ -67,7 +67,7 @@ bool AI::checkWin(int player) {
 						if (_board.getBoardValue(i, j + k) == player)
 						{
 							howManyMatches++;
-							if (howManyMatches == 4)
+							if (howManyMatches == 5)
 								return true;
 						}
 						else
@@ -154,7 +154,7 @@ bool AI::checkWin(int player) {
 	return false;
 }
 
-bool AI::checkRing(GlobalBoard &board, int player, int heightAddres, int widthAddres)
+/*bool AI::checkRing(GlobalBoard &board, int player, int heightAddres, int widthAddres)
 {
 
 	bool closed[6];
@@ -227,7 +227,7 @@ bool AI::checkRing(GlobalBoard &board, int player, int heightAddres, int widthAd
 			return false;
 	}
 	return true;
-}
+}*/
 
 AIMove AI::chooseBestMove(std::vector<AIMove> &moves, Move& player) {
 	int choosingIndex = 0;
