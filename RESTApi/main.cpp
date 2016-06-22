@@ -93,10 +93,7 @@ int main()
 
 		AIMove move = ai->performMove();
 		Move win = None;
-		if (ai->totalMoves() > 9)
-		{
-			win = ai->CheckWin();
-		}
+		win = ai->CheckWin();
 		if (win == None) {
 			board->~GlobalBoard();
 			free(ai);

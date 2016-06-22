@@ -22,31 +22,6 @@ Move AI::CheckWin() {
 
 }
 
-class globalVariables {
-public:
-	bool **duplicationBoard;
-	globalVariables()
-	{
-		duplicationBoard = new bool *[20];
-		for (int i = 0; i < 20; ++i)
-		{
-			duplicationBoard[i] = new bool[20];
-			for (int j = 0; j < 20; j++)
-			{
-				duplicationBoard[i][j] = false;
-			}
-		}
-	}
-
-	void clearBoard()
-	{
-		for (int i = 0; i < 20; i++)
-			for (int j = 0; j < 20; j++)
-				duplicationBoard[i][j] = false;
-	}
-};
-globalVariables globalVar;
-
 AIMove AI::performMove() {
 	return getBestMove(_board, Bot, 0);
 }
@@ -62,12 +37,13 @@ bool AI::checkWin(int player) {
 			{
 				if (j + 8 < _board.getBoardWidth())
 				{
+					howManyMatches = 0;
 					for (int k = 0; k < 9; k += 2)
 					{
 						if (_board.getBoardValue(i, j + k) == player)
 						{
 							howManyMatches++;
-							if (howManyMatches == 4)
+							if (howManyMatches == 5)
 								return true;
 						}
 						else
@@ -77,14 +53,16 @@ bool AI::checkWin(int player) {
 						}
 					}
 				}
-				if (j - 4 >= 0 && i + 4 < _board.getBoardHeight())
+
+				if (j - 4 > 0 && i + 4 <= _board.getBoardHeight())
 				{
+					howManyMatches = 0;
 					for (int k = 0; k < 5; k++)
 					{
-						if (_board.getBoardValue(i + k, j - k) == player)
+						if (_board.getBoardValue(i + k,j - k) == player)
 						{
 							howManyMatches++;
-							if (howManyMatches == 4)
+							if (howManyMatches == 5)
 								return true;
 						}
 						else
@@ -94,8 +72,11 @@ bool AI::checkWin(int player) {
 						}
 					}
 				}
-				if (j + 4 >= 0 && i + 4 < _board.getBoardHeight())
+				
+
+				if (j + 4 < _board.getBoardWidth() && i + 4 <= _board.getBoardHeight())
 				{
+					howManyMatches = 0;
 					for (int k = 0; k < 5; k++)
 					{
 						if (_board.getBoardValue(i + k, j + k) == player)
@@ -111,18 +92,21 @@ bool AI::checkWin(int player) {
 						}
 					}
 				}
+				
 			}
 		if (i % 2 != 0)
+
 			for (int j = 1; j < _board.getBoardWidth(); j += 2)
 			{
 				if (j + 8 < _board.getBoardWidth())
 				{
+					howManyMatches = 0;
 					for (int k = 0; k < 9; k += 2)
 					{
 						if (_board.getBoardValue(i, j + k) == player)
 						{
 							howManyMatches++;
-							if (howManyMatches == 4)
+							if (howManyMatches == 5)
 								return true;
 						}
 						else
@@ -132,11 +116,32 @@ bool AI::checkWin(int player) {
 						}
 					}
 				}
-				if (j - 4 >= 0 && i + 4 >= 0)
+
+				if (j - 4 > 0 && i + 4 <= _board.getBoardHeight())
 				{
+					howManyMatches = 0;
 					for (int k = 0; k < 5; k++)
 					{
-						if (_board.getBoardValue(i + k, j - k) == player)
+						if (_board.getBoardValue(i + k,j - k) == player)
+						{
+							howManyMatches++;
+							if (howManyMatches == 5)
+								return true;
+						}
+						else
+						{
+							howManyMatches = 0;
+							break;
+						}
+					}
+				}
+
+				if (j + 4 < _board.getBoardWidth() && i + 4 <= _board.getBoardHeight())
+				{
+					howManyMatches = 0;
+					for (int k = 0; k < 5; k++)
+					{
+						if (_board.getBoardValue(i + k,j + k) == player)
 						{
 							howManyMatches++;
 							if (howManyMatches == 5)
@@ -257,10 +262,10 @@ AIMove AI::chooseBestMove(std::vector<AIMove> &moves, Move& player) {
 AIMove AI::getBestMove(GlobalBoard &board, Move player, int depth) {
 	//check if someone win so we can return a score
 	if (checkWin(Bot)) {
-		return  AIMove(10);
+		return  AIMove(9);
 	}
 	else if (checkWin(Player)) {
-		return AIMove(-10);
+		return AIMove(-11);
 	}
 	else if (!checkWin(None) || depth == _maxDepth) {
 		return AIMove(0);
